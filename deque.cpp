@@ -40,6 +40,10 @@ T Deque<T>::popL()
     /**
      * @todo Your code here! 
      */
+    //this implementation have O(n) (not correct)
+    T left = data[0];
+    data.erase(data.begin());
+    return left;
     
 }
 /**
