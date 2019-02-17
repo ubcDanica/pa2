@@ -23,6 +23,7 @@ void Deque<T>::pushR(T const& newItem)
     /**
      * @todo Your code here!
      */
+    data.push_back(newItem);
 }
 
 /**
@@ -53,7 +54,9 @@ T Deque<T>::popR()
     /**
      * @todo Your code here! 
      */
-
+    T right = peekR();
+    data.resize(data.size()-1);
+    return right;
 }
 
 /**
@@ -68,7 +71,7 @@ T Deque<T>::peekL()
     /**
      * @todo Your code here! 
      */
-
+    return data[0];
 }
 
 /**
@@ -83,6 +86,7 @@ T Deque<T>::peekR()
     /**
      * @todo Your code here! 
      */
+    return data[data.size()-1];
 }
 
 /**
@@ -96,4 +100,5 @@ bool Deque<T>::isEmpty() const
     /**
      * @todo Your code here! 
      */
+    return (data.size()==0);
 }
