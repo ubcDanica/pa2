@@ -14,10 +14,7 @@ TEST_CASE("deque::basic functions","[weight=1][part=deque]"){
     for (int i = 10; i > 0; i--) {
         expected.push_back(i);
     }
-/*    printf("expected: ");
-    for (int i = 10; i > 0; i--) {
-        printf("%d ", expected[i]);
-    }*/
+
     for (int i = 1; i <= 10; i++) { 
         intDeque.pushR(i);
         printf("\n result:%d ", intDeque.peekR());

@@ -46,6 +46,8 @@ void Stack<T>::add(const T& theItem)
      * @todo Your code here! Hint: this should call another Stack function
      *  to add the element to the Stack.
      */
+    this.push(theItem);
+    //not sure
 }
 
 /**
@@ -60,6 +62,8 @@ T Stack<T>::remove()
      * @todo Your code here! Hint: this should call another Stack function
      *  to remove an element from the Stack and return it. 
      */
+    return this.pop();
+    //not sure
 }
 
 /**

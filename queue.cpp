@@ -46,6 +46,7 @@ void Queue<T>::add(const T& theItem)
      * @todo Your code here! Hint: this function should call a Queue
      *  function to add the element to the Queue.
      */
+    this.enqueue(theItem);
 }
 
 /**
@@ -60,6 +61,8 @@ T Queue<T>::remove()
      * @todo Your code here! Hint: this function should call a Queue
      *  function to remove an element from the Queue and return it. 
      */
+    return this.dequeue();
+    //not sure
 }
 
 /**
