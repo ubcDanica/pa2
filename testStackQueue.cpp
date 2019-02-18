@@ -3,7 +3,7 @@
 #include "cs221util/catch.hpp"
 #include "stack.h"
 #include "queue.h"
-//using namespace cs221util;
+//using namespace cs221util; 
 using namespace std;
 
 TEST_CASE("deque::basic functions","[weight=1][part=deque]"){
@@ -17,7 +17,6 @@ TEST_CASE("deque::basic functions","[weight=1][part=deque]"){
 
     for (int i = 1; i <= 10; i++) { 
         intDeque.pushR(i);
-        printf("\n result:%d ", intDeque.peekR());
 
     }
 
@@ -64,8 +63,6 @@ TEST_CASE("queue::basic functions","[weight=1][part=queue]"){
     }
     for (int i = 1; i <= 10; i++) {
         intQueue.enqueue(i);
-        printf("\n result:%d ", intQueue.peek());
-
     }
     while (!intQueue.isEmpty()) {
         result.push_back(intQueue.dequeue());

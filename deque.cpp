@@ -73,11 +73,11 @@ T Deque<T>::popL()
     else
     	k1 += 1;
 
-    printf("\ndataSize: %ld", data.size());
+ /*   printf("\ndataSize: %ld", data.size());
     printf("\nk1: %d", k1);
-    printf("\nk2: %d", k2);
+    printf("\nk2: %d", k2);*/
 
-    int real_size = k1<=k2? k2-k1+1:k2+8-k1+1;
+    int real_size = k1<=k2? k2-k1+1:k2+(int)data.size()-k1+1;
     if(2*real_size<=(int)data.size() && data.size()>=1){
     	vector<T> newData(0);
     	for(int i=k1;i<=k2;i++){
@@ -117,7 +117,7 @@ T Deque<T>::popR()
     //printf("\ndataSize: %ld", data.size());
     //printf("\nk1: %d", k1);
     //printf("\nk2: %d", k2);
-    int real_size = k1<=k2? k2-k1+1:k2+8-k1+1;
+    int real_size = k1<=k2? k2-k1+1:k2+(int)data.size()-k1+1;
     if(2*real_size<=(int)data.size() && data.size()>=1){
     	vector<T> newData(0);
     	for(int i=k1;i<=k2;i++){
