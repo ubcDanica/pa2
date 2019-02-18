@@ -9,6 +9,9 @@ template <class T>
 Deque<T>::Deque(){
 
 /* your code here */
+	data.resize(0);
+	k1 = -1;
+	k2 = -1;
 
 }
 
@@ -23,7 +26,29 @@ void Deque<T>::pushR(T const& newItem)
     /**
      * @todo Your code here!
      */
-    data.push_back(newItem);
+    if(data.size()==0){
+    	data.resize(1);
+    	data[0] = newItem;
+    	k1 = 0;
+    	k2 = 0;
+    }
+    else{
+    	if(k1+k2 == (int)data.size()-1){
+    		//printf("\n before push dataSize: %ld", data.size());
+    		data.resize((int)data.size()*2);
+    	}
+    	//printf("\n after push dataSize: %ld", data.size());
+    	
+    //printf("\nk1: %d", k1);
+    //printf("\nk2: %d", k2);    	
+    	if(k2==(int)data.size()-1)
+    		k2=0;
+    	else
+    		k2+=1;
+    	data[k2] = newItem;
+    }
+
+    //Not sure, if it resize the running time change
 }
 
 /**
@@ -40,11 +65,35 @@ T Deque<T>::popL()
     /**
      * @todo Your code here! 
      */
-    //this implementation have O(n) (not correct)
-    T left = data[0];
-    data.erase(data.begin());
-    return left;
+
+    T left = data[k1];
+
+    if(k1==(int)data.size()-1)
+    	k1 = 0;
+    else
+    	k1 += 1;
+
+    printf("\ndataSize: %ld", data.size());
+    printf("\nk1: %d", k1);
+    printf("\nk2: %d", k2);
+
+    int real_size = k1<=k2? k2-k1+1:k2+8-k1+1;
+    if(2*real_size<=(int)data.size() && data.size()>=1){
+    	vector<T> newData(0);
+    	for(int i=k1;i<=k2;i++){
+    		newData.push_back(data[i]);
+    	}
+    	k1=0;
+    	k2=newData.size()-1;
+    	data = newData;
+    }
+    else if(data.size()==1){
+    	k1 = -1;
+    	k2 = -1;
+    	data.resize(0);
+    }
     
+    return left;
 }
 /**
  * Removes the object at the right of the Deque, and returns it to the
@@ -58,8 +107,32 @@ T Deque<T>::popR()
     /**
      * @todo Your code here! 
      */
-    T right = peekR();
-    data.resize(data.size()-1);
+    T right = data[k2];	
+
+    if(k2==0)
+    	k2=data.size()-1;
+    else
+    	k2-=1;
+
+    //printf("\ndataSize: %ld", data.size());
+    //printf("\nk1: %d", k1);
+    //printf("\nk2: %d", k2);
+    int real_size = k1<=k2? k2-k1+1:k2+8-k1+1;
+    if(2*real_size<=(int)data.size() && data.size()>=1){
+    	vector<T> newData(0);
+    	for(int i=k1;i<=k2;i++){
+    		newData.push_back(data[i]);
+    	}
+    	k1=0;
+    	k2=newData.size()-1;
+    	data = newData;
+    }
+    else if(data.size()==1){
+    	k1 = -1;
+    	k2 = -1;
+    	data.resize(0);
+    }
+    
     return right;
 }
 
@@ -75,7 +148,7 @@ T Deque<T>::peekL()
     /**
      * @todo Your code here! 
      */
-    return data[0];
+    return data[k1];
 }
 
 /**
@@ -90,7 +163,7 @@ T Deque<T>::peekR()
     /**
      * @todo Your code here! 
      */
-    return data[data.size()-1];
+    return data[k2];
 }
 
 /**
@@ -104,5 +177,5 @@ bool Deque<T>::isEmpty() const
     /**
      * @todo Your code here! 
      */
-    return (data.size()==0);
+    return (k1==-1);
 }

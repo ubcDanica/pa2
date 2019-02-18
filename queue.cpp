@@ -15,6 +15,7 @@ void Queue<T>::enqueue(T const& newItem)
     /**
      * @todo Your code here!
      */
+    myQueue.pushR(newItem);
 }
 
 /**
@@ -29,6 +30,7 @@ T Queue<T>::dequeue()
     /**
      * @todo Your code here! 
      */
+    return myQueue.popL();
 
 }
 
@@ -72,6 +74,7 @@ T Queue<T>::peek()
     /**
      * @todo Your code here! 
      */
+    return myQueue.peekL();
 }
 
 /**
@@ -85,4 +88,5 @@ bool Queue<T>::isEmpty() const
     /**
      * @todo Your code here! 
      */
+    return myQueue.isEmpty();
 }
