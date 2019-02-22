@@ -9,7 +9,7 @@ stripeColorPicker::stripeColorPicker(HSLAPixel fillColor, int stripeSpacing)
 
 HSLAPixel stripeColorPicker::operator()(int x, int y)
 {
-	if(x/spacing==0 || y/spacing==0)
+	if(x%spacing==0)
 		return color;
 	else{
 		HSLAPixel white;
