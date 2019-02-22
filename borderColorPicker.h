@@ -55,6 +55,11 @@ class borderColorPicker : public colorPicker
     PNG im;
     double tol;
     HSLAPixel ctr;
+
+    bool isFillBorder(int x, int y);
+    bool isImgBorder(int x, int y);
+
+
 };
 
 #endif

@@ -49,7 +49,7 @@ PNG testColorPicker(colorPicker& picker)
 {
     PNG img;
     img.resize(FUNCTORTESTWIDTH, FUNCTORTESTHEIGHT);
-    HSLAPixel px;
+    HSLAPixel px; 
 
     for (int x = 1; x < FUNCTORTESTWIDTH; x = x + x) {
         for (int y = 1; y < FUNCTORTESTHEIGHT; y = y + y) {
@@ -93,16 +93,15 @@ TEST_CASE("colorPicker::basic rainbow","[weight=1][part=colorPicker]"){
     REQUIRE(result == expected);
 
 }
-/*
 TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
 
     PNG img;
     img.resize(FUNCTORTESTWIDTH, FUNCTORTESTHEIGHT);
 
     HSLAPixel px1;
-    px1.h = 360.;
-    px1.s = 1.0; px1.l = 0.5;
-    HSLAPixel px2;
+    px1.h = 360.; 
+    px1.s = 1.0; px1.l = 0.5; 
+    HSLAPixel px2; 
 
     borderColorPicker borderPicker(px1, img, 0.4, px2);
 
@@ -112,6 +111,7 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
     REQUIRE(result == expected);
 }
 
+/*
 TEST_CASE("fill::basic border dfs","[weight=1][part=fill]"){
     PNG img;
     img.readFromFile(SOLIDTESTIMAGE);
