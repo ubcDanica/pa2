@@ -133,6 +133,9 @@ namespace filler
     template <template <class T> class OrderingStructure>
     animation fill(PNG& img, int x, int y, colorPicker& fillColor,
                    double tolerance, int frameFreq);
+
+    bool canAdd(PNG& img, int x,int y,std::map<std::pair<int,int>, bool> mark, double tolerance, HSLAPixel *center);
+    
 }
 #include "filler.cpp"
 #endif

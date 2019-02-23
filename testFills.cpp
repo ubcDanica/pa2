@@ -103,7 +103,7 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
     px1.s = 1.0; px1.l = 0.5; 
     HSLAPixel px2; 
 
-    borderColorPicker borderPicker(px1, img, 0.4, px2);
+    borderColorPicker borderPicker(px1, img, 3, px2);
 
     PNG result = testColorPicker(borderPicker);
     result.writeToFile("images/borderColorPickerTest.png");

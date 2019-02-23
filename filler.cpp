@@ -11,6 +11,8 @@ animation filler::fillStripeDFS(PNG& img, int x, int y, HSLAPixel fillColor,
     /**
      * @todo Your code here! 
      */
+    stripeColorPicker a(fillColor, stripeSpacing);
+    return fill<Stack>(img, x, y, a, tolerance, frameFreq);
 }
 
 animation filler::fillBorderDFS(PNG& img, int x, int y,
@@ -19,6 +21,10 @@ animation filler::fillBorderDFS(PNG& img, int x, int y,
     /**
      * @todo Your code here! 
      */
+    HSLAPixel *center = img.getPixel(x,y);
+
+    borderColorPicker a(borderColor, img, tolerance, *center);
+    return fill<Stack>(img, x, y, a, tolerance, frameFreq);
 }
 
 /* Given implementation of a DFS rainbow fill. */
@@ -35,6 +41,8 @@ animation filler::fillStripeBFS(PNG& img, int x, int y, HSLAPixel fillColor,
     /**
      * @todo Your code here! 
      */
+    stripeColorPicker a(fillColor, stripeSpacing);
+    return fill<Queue>(img, x, y, a, tolerance, frameFreq);
 }
 
 animation filler::fillBorderBFS(PNG& img, int x, int y,
@@ -43,6 +51,10 @@ animation filler::fillBorderBFS(PNG& img, int x, int y,
     /**
      * @todo Your code here! You should replace the following line with a
      */
+    HSLAPixel *center = img.getPixel(x,y);
+
+    borderColorPicker a(borderColor, img, tolerance, *center);
+    return fill<Queue>(img, x, y, a, tolerance, frameFreq);
 }
 
 /* Given implementation of a BFS rainbow fill. */
@@ -57,6 +69,76 @@ template <template <class T> class OrderingStructure>
 animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
                        double tolerance, int frameFreq)
 {
+    OrderingStructure<std::pair<int,int>> ordering;
+    int x0;
+    int y0;
+    int fill = 0;
+    HSLAPixel *center = img.getPixel(x,y);
+    animation anim;
+
+    std::map<std::pair<int,int>, bool> mark;
+
+    for(int a=0;a<img.width();a++){
+        for(int b=0;b<img.height();b++){
+            mark.insert(pair<int,int>(a,b), false);
+        }
+    }
+
+    ordering.add(std::pair<int, int>(x, y));
+
+    while(!ordering.isEmpty()){
+        pair<int,int>(x0,y0) = ordering.remove();
+
+        if(canAdd(img, x0+1, y0-1, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0+1,y0-1));
+        if(canAdd(img, x0, y0-1, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0,y0-1));
+        if(canAdd(img, x0-1, y0-1, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0-1,y0-1));
+        if(canAdd(img, x0-1, y0, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0-1,y0));
+        if(canAdd(img, x0-1, y0+1, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0-1,y0+1));
+        if(canAdd(img, x0, y0+1, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0,y0+1));
+        if(canAdd(img, x0+1, y0+1, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0+1,y0+1));
+        if(canAdd(img, x0+1, y0, mark, tolerance, center))
+            ordering.add(pair<int,int>(x0+1,y0));
+
+
+
+        HSLAPixel *pixel = img.getPixel((unsigned)x0,(unsigned)y0);
+        *pixel = fillColor(x,y);
+        fill++;
+
+        std::map<std::pair<int,int>,bool>::iterator marked = mark.find(pair<int,int>(x0,y0));
+        marked->second = true;
+
+        if(fill%frameFreq == 0){
+            anim.addFrame(img);
+            anim.write(anim);
+        }
+
+
+    }
+    anim.addFrame(img);
+    anim.write(anim);
+    
+}
+    bool filler::canAdd(PNG& img, int x,int y,std::map<std::pair<int,int>, bool> mark, double tolerance, HSLAPixel *center){
+        if(x<=img.width() && x>0 && y<=img.height() && y>0){
+            HSLAPixel *pixel = img.getPixel(x,y);
+            if(mark.at(pair<int,int>(x,y)) == false && !((*center+tolerance<*pixel) || (*pixel<*center-tolerance))){
+                return true;
+            }
+            else
+                return false;
+        }
+        else return false;
+
+    }
+
     /**
      * @todo You need to implement this function!
      *
@@ -126,4 +208,4 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
      *        it will be the one we test against.
      */
 
-} 
+
