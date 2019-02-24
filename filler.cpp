@@ -78,9 +78,9 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
     std::map<std::pair<int,int>, bool> mark;
 
-    for(int a=0;a<img.width();a++){
-        for(int b=0;b<img.height();b++){
-            mark.insert(pair<int,int>(a,b), false);
+    for(int a=0;a<(int)img.width();a++){
+        for(int b=0;b<(int)img.height();b++){
+            mark[pair<int,int>(a,b)] = false;
         }
     }
 
@@ -117,17 +117,17 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
         if(fill%frameFreq == 0){
             anim.addFrame(img);
-            anim.write(anim);
+            //anim.write(anim);
         }
 
 
     }
     anim.addFrame(img);
-    anim.write(anim);
+    //anim.write(anim);
     
 }
     bool filler::canAdd(PNG& img, int x,int y,std::map<std::pair<int,int>, bool> mark, double tolerance, HSLAPixel *center){
-        if(x<=img.width() && x>0 && y<=img.height() && y>0){
+        if(x<=(int)img.width() && x>0 && y<=(int)img.height() && y>0){
             HSLAPixel *pixel = img.getPixel(x,y);
             if(mark.at(pair<int,int>(x,y)) == false && !((*center+tolerance<*pixel) || (*pixel<*center-tolerance))){
                 return true;
