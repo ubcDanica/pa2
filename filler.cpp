@@ -124,13 +124,14 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     }
     anim.addFrame(img);
     //anim.write(anim);
+
     return anim;
     
 }
     bool filler::canAdd(PNG& img, int x,int y,std::map<std::pair<int,int>, bool> mark, double tolerance, HSLAPixel *center){
         if(x<=(int)img.width() && x>0 && y<=(int)img.height() && y>0){
             HSLAPixel *pixel = img.getPixel(x,y);
-            if(mark.at(pair<int,int>(x,y)) == false && !((*center+tolerance<*pixel) || (*pixel<*center-tolerance))){
+            if(mark.at(pair<int,int>(x,y)) == false && (center->dist(*pixel)<= tolerance)){
                 return true;
             }
             else
