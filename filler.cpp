@@ -109,7 +109,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
 
         HSLAPixel *pixel = img.getPixel((unsigned)x0,(unsigned)y0);
-        *pixel = fillColor.operator()(x,y);
+        *pixel = fillColor.operator()(x0,y0);
         fill++;
  
         std::map<std::pair<int,int>,bool>::iterator marked = mark.find(pair<int,int>(x0,y0));
