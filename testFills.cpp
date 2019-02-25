@@ -111,7 +111,7 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
     REQUIRE(result == expected);
 }
 
-/*
+
 TEST_CASE("fill::basic border dfs","[weight=1][part=fill]"){
     PNG img;
     img.readFromFile(SOLIDTESTIMAGE);
@@ -195,5 +195,5 @@ TEST_CASE("fill::basic rainbow bfs","[weight=1][part=fill]"){
     PNG expected; expected.readFromFile("soln_images/bfsrain.png");
     REQUIRE(result==expected);
 
-}*/
+}
 
