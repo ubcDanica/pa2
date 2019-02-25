@@ -109,9 +109,9 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
 
         HSLAPixel *pixel = img.getPixel((unsigned)x0,(unsigned)y0);
-        *pixel = fillColor(x,y);
+        *pixel = fillColor.operator()(x,y);
         fill++;
-
+ 
         std::map<std::pair<int,int>,bool>::iterator marked = mark.find(pair<int,int>(x0,y0));
         marked->second = true;
 
@@ -124,6 +124,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     }
     anim.addFrame(img);
     //anim.write(anim);
+    return anim;
     
 }
     bool filler::canAdd(PNG& img, int x,int y,std::map<std::pair<int,int>, bool> mark, double tolerance, HSLAPixel *center){
