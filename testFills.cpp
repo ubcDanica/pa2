@@ -112,7 +112,7 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
 }
 
 
-/*TEST_CASE("fill::basic border dfs","[weight=1][part=fill]"){
+TEST_CASE("fill::basic border dfs","[weight=1][part=fill]"){
     PNG img;
     img.readFromFile(SOLIDTESTIMAGE);
     HSLAPixel px(200., 1.0, 0.5);
@@ -123,9 +123,9 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
     result.writeToFile("images/dfsborder.png");
     PNG expected; expected.readFromFile("soln_images/dfsborder.png");
     REQUIRE(result==expected);
-}*/
+}
 
-/*TEST_CASE("fill::basic border bfs","[weight=1][part=fill]"){
+TEST_CASE("fill::basic border bfs","[weight=1][part=fill]"){
     PNG img;
     img.readFromFile(SOLIDTESTIMAGE);
     HSLAPixel px(200., 1.0, 0.5);
@@ -137,8 +137,9 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
     PNG expected; expected.readFromFile("soln_images/bfsborder.png");
     REQUIRE(result==expected);
 }
-*/
-/*TEST_CASE("fill::basic stripe dfs","[weight=1][part=fill]"){
+
+
+TEST_CASE("fill::basic stripe dfs","[weight=1][part=fill]"){
     PNG img;
     img.readFromFile(GRIDTESTIMAGE);
     HSLAPixel px(40., 1.0, 0.5);
@@ -150,7 +151,7 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
     result.writeToFile("images/dfsstripe.png");
     PNG expected; expected.readFromFile("soln_images/dfsstripe.png");
     REQUIRE(result==expected);
-}*/
+}
 
 TEST_CASE("fill::basic stripe bfs","[weight=1][part=fill]"){
     PNG img;
@@ -166,7 +167,7 @@ TEST_CASE("fill::basic stripe bfs","[weight=1][part=fill]"){
     REQUIRE(result==expected);
 }
 
-/*TEST_CASE("fill::basic rainbow dfs","[weight=1][part=fill]"){
+TEST_CASE("fill::basic rainbow dfs","[weight=1][part=fill]"){
 
     PNG img;
     img.readFromFile(RAINTESTIMAGE);
@@ -179,9 +180,9 @@ TEST_CASE("fill::basic stripe bfs","[weight=1][part=fill]"){
     result.writeToFile("images/dfsrain.png");
     PNG expected; expected.readFromFile("soln_images/dfsrain.png");
     REQUIRE(result==expected);
+}
 
-}*/
-/*TEST_CASE("fill::basic rainbow bfs","[weight=1][part=fill]"){
+TEST_CASE("fill::basic rainbow bfs","[weight=1][part=fill]"){
 
     PNG img;
     img.readFromFile(RAINTESTIMAGE);
@@ -197,4 +198,4 @@ TEST_CASE("fill::basic stripe bfs","[weight=1][part=fill]"){
 
 }
 
-*/
+
