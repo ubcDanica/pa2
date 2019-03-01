@@ -79,61 +79,31 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
     std::vector<std::vector<int>> marked(img.width(), vector<int> (img.height(), 0));
 
-    ordering.add(std::pair<int, int>(x, y));
+    Add(img,x,y,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+
+    if(fill%frameFreq == 0){
+        cout<< "should add frame"<<endl;
+        anim.addFrame(img);
+    }
 
     if(!ordering.isEmpty())
         cout<<"not empty now"<<endl;
     pair<int,int> firstElement = ordering.peek();
+
 
     while(!ordering.isEmpty()){
         pair<int,int> element = ordering.remove();
         x0 = element.first;
         y0 = element.second;
 
-        HSLAPixel *pixel = img.getPixel((unsigned int)x0,(unsigned int)y0);
-
-        if(marked[x0][y0]== 0){
-            if(canAdd(img, x0+1, y0-1, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0+1,y0-1));
-            }
-            if(canAdd(img, x0, y0-1, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0,y0-1));
-
-            }
-            if(canAdd(img, x0-1, y0-1, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0-1,y0-1));
-
-            }
-            if(canAdd(img, x0-1, y0, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0-1,y0));
-            }
-            if(canAdd(img, x0-1, y0+1, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0-1,y0+1));
-            }
-            if(canAdd(img, x0, y0+1, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0,y0+1));
-            }
-            if(canAdd(img, x0+1, y0+1, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0+1,y0+1));
-
-            }
-            if(canAdd(img, x0+1, y0, tolerance, center, marked)){
-                ordering.add(pair<int,int>(x0+1,y0));
-
-            }
-
-
-            *pixel = fillColor(x0,y0);
-            fill++;
-            marked[x0][y0] = 1;
-
-            if(fill%frameFreq == 0){
-                cout<< "should add frame"<<endl;
-                anim.addFrame(img);
-            }
-        }
-
-
+        Add(img,x0+1,y0-1,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+        Add(img,x0,y0-1,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+        Add(img,x0-1,y0-1,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+        Add(img,x0-1,y0,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+        Add(img,x0-1,y0+1,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+        Add(img,x0,y0+1,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+        Add(img,x0+1,y0+1,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
+        Add(img,x0+1,y0,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
 
     }
 
@@ -143,13 +113,25 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     return anim;
     
 }
-    bool filler::canAdd(PNG& img, int x,int y,double tolerance, HSLAPixel *center, std::vector<std::vector<int>> &marked){
+    bool filler::Add(PNG& img, int x,int y,double tolerance, HSLAPixel *center, std::vector<std::vector<int>> &marked,
+                    int &fill, int frameFreq, OrderingStructure<std::pair<int,int>> &ordering, animation &anim, colorPicker &fillColor){
+
         if((unsigned int)x<img.width() && x>=0 && (unsigned int)y<img.height() && y>=0){
 
             HSLAPixel *pixel = img.getPixel((unsigned int)x,(unsigned int)y);
 
             if(marked[x][y] == 0 && (pixel->dist(*center)<= tolerance)){
+
+                ordering.add(pair<int,int>(x,y));
+                *pixel = fillColor(x,y);
+                marked[x][y] = 1;
+                fill++;
+                if(fill%frameFreq == 0){
+                    cout<< "should add frame"<<endl;
+                    anim.addFrame(img);
+                }
                 return true;
+
             }
             else{
                 return false;
