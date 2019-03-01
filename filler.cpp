@@ -65,6 +65,19 @@ animation filler::fillRainBFS(PNG& img, int x, int y,
     return fill<Queue>(img, x, y, a, tolerance, frameFreq);
 }
 
+animation filler::fillCustomDFS(PNG& writeImg, PNG& readImg, int x, int y, double tolerance, int frameFreq)
+{
+    customColorPicker a(writeImg,readImg);
+    return fill<Stack>(writeImg, x, y, a, tolerance, frameFreq);
+}
+
+animation filler::fillCustomBFS(PNG& writeImg, PNG& readImg, int x, int y, double tolerance, int frameFreq)
+{
+    customColorPicker a(writeImg,readImg);
+    return fill<Queue>(writeImg, x, y, a, tolerance, frameFreq);
+
+}
+
 template <template <class T> class OrderingStructure>
 animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
                        double tolerance, int frameFreq)

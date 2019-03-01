@@ -4,7 +4,7 @@ customColorPicker::customColorPicker(PNG & writeImg, PNG & readImg)
 {
 /* Your code here! */
     reIm = readImg;
-    wrim = writeimg;
+    wrIm = writeImg;
 }
 
 HSLAPixel customColorPicker::operator()(int x, int y)
@@ -15,9 +15,11 @@ HSLAPixel customColorPicker::operator()(int x, int y)
     x0 = (unsigned int) x % reIm.width();
     y0 = (unsigned int) y % reIm.height();
 
-    HSLAPixel * writePixel = getPixel((unsigned)x,(unsigned)y);
-    HSLAPixel * readPixel = getPixel(x0,y0);
+    HSLAPixel * writePixel = wrIm.getPixel((unsigned)x,(unsigned)y);
+    HSLAPixel * readPixel = reIm.getPixel(x0,y0);
 
     *writePixel = *readPixel;
+
+    return *writePixel;
 
 }
