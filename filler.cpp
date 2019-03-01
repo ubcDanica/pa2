@@ -120,7 +120,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
     }
 
-    //cout << "should add frame" <<endl;
+    cout << "add last frame" <<endl;
     anim.addFrame(img);
 
     return anim;
@@ -137,6 +137,11 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
             if(marked[x][y] == 0 && (pixel->dist(*center)<= tolerance)){
 
                 ordering.add(pair<int,int>(x,y));
+/*                cout<<"x: ";
+                cout<<x<<endl;
+                cout<<"y: ";
+                cout<<y<<endl;*/
+
                 *pixel = fillColor(x,y);
                 marked[x][y] = 1;
                 fill++;

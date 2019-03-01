@@ -49,7 +49,7 @@ using namespace cs221util;
 //#define WRITEHEIGHT 60
 #define READWIDTH 5
 #define READHEIGHT 5
-#define READIM "originals/leaf.png"
+#define READIM "originals/leaf0.png"
 #define WRITEIM "originals/girl.png"
 
 
@@ -218,7 +218,7 @@ TEST_CASE("fill::basic custom dfs","[weight=1][part=fill]"){
     PNG writeImg;
     writeImg.readFromFile(WRITEIM);
 
-    cout<<"write image height: ";
+/*    cout<<"write image height: ";
     cout<<writeImg.height()<<endl;
     cout<<"write image width: ";
     cout<<writeImg.width()<<endl;
@@ -226,20 +226,17 @@ TEST_CASE("fill::basic custom dfs","[weight=1][part=fill]"){
     cout<<"read image height: ";
     cout<<readImg.height()<<endl;
     cout<<"read image width: ";
-    cout<<readImg.width()<<endl;
+    cout<<readImg.width()<<endl;*/
 
-    cout<<"new read image height: ";
-    cout<<readImg.height()<<endl;
-    cout<<"new read image width: ";
-    cout<<readImg.width()<<endl;
+    //readImg.resize(READWIDTH, READHEIGHT);
 
-    readImg.resize(READWIDTH, READHEIGHT);
-
-    animation anim1;
-    anim1 = filler::fillCustomDFS(writeImg, readImg, 10, 10, GRIDTOLERANCE, GRIDFRAMEFREQ);
-    PNG result1 = anim1.write("images/dfscustom.gif");
-    result1.writeToFile("images/dfscustom.png");
-
+    animation anim;
+    anim = filler::fillCustomDFS(writeImg, readImg, 100, 200, 0.1, 2000);
+    cout<<"jump out of function dfs"<<endl;
+    PNG result = anim.write("images/dfscustom.gif");
+    cout<<"write gif dfs"<<endl;
+    result.writeToFile("images/dfscustom.png");
+    cout<<"write to file dfs"<<endl;
 }
 
 TEST_CASE("fill::basic custom bfs","[weight=1][part=fill]"){
@@ -250,10 +247,11 @@ TEST_CASE("fill::basic custom bfs","[weight=1][part=fill]"){
     PNG writeImg;
     writeImg.readFromFile(WRITEIM);
 
-    readImg.resize(READWIDTH, READHEIGHT);
+    //readImg.resize(READWIDTH, READHEIGHT);
 
     animation anim2;
-    anim2 = filler::fillCustomBFS(writeImg, readImg, 10, 10, GRIDTOLERANCE, GRIDFRAMEFREQ);
+    anim2 = filler::fillCustomBFS(writeImg, readImg, 100, 200, 0.1, 2000);
+    cout<<"jump out of function bfs"<<endl;
     PNG result = anim2.write("images/bfscustom.gif");
     result.writeToFile("images/bfscustom.png");
 
