@@ -95,7 +95,6 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
         if(marked[x0][y0]== 0){
             if(canAdd(img, x0+1, y0-1, tolerance, center, marked)){
                 ordering.add(pair<int,int>(x0+1,y0-1));
-
             }
             if(canAdd(img, x0, y0-1, tolerance, center, marked)){
                 ordering.add(pair<int,int>(x0,y0-1));
@@ -124,7 +123,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
             }
 
 
-            *pixel = fillColor.operator()(x0,y0);
+            *pixel = fillColor(x0,y0);
             fill++;
             marked[x0][y0] = 1;
 

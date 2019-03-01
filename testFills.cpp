@@ -169,7 +169,7 @@ TEST_CASE("fill::basic stripe bfs","[weight=1][part=fill]"){
 
 TEST_CASE("fill::basic rainbow dfs","[weight=1][part=fill]"){
 
-    PNG img;
+    PNG img; 
     img.readFromFile(RAINTESTIMAGE);
 
     animation anim;
