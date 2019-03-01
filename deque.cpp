@@ -98,20 +98,6 @@ T Deque<T>::popL()
     	k2 = -1;
     	data.resize(0);
     }
-/*    int real_size = k2-k1+1;
-    if(2*real_size<=(int)data.size() && data.size()>1){
-        for(int i=0;i<k2-k1+1;i++){
-            data[i] = data[k1+i];
-        }
-        data.resize(k1+k2-1);
-        k1=0;
-        k2=data.size()-1;
-    }
-    else if(data.size()==1){
-        k1=-1;
-        k2=-1;
-        data.resize(0);
-    }*/
     
     return left;
 }
@@ -152,6 +138,7 @@ T Deque<T>::popR()
     	k2 = -1;
     	data.resize(0);
     }
+
     
     return right;
 }

@@ -136,9 +136,9 @@ TEST_CASE("colorPicker::basic border","[weight=1][part=colorPicker]"){
     result.writeToFile("images/bfsborder.png");
     PNG expected; expected.readFromFile("soln_images/bfsborder.png");
     REQUIRE(result==expected);
-}*/
-/*
-TEST_CASE("fill::basic stripe dfs","[weight=1][part=fill]"){
+}
+*/
+/*TEST_CASE("fill::basic stripe dfs","[weight=1][part=fill]"){
     PNG img;
     img.readFromFile(GRIDTESTIMAGE);
     HSLAPixel px(40., 1.0, 0.5);
@@ -150,9 +150,9 @@ TEST_CASE("fill::basic stripe dfs","[weight=1][part=fill]"){
     result.writeToFile("images/dfsstripe.png");
     PNG expected; expected.readFromFile("soln_images/dfsstripe.png");
     REQUIRE(result==expected);
-}
-*/
-/*TEST_CASE("fill::basic stripe bfs","[weight=1][part=fill]"){
+}*/
+
+TEST_CASE("fill::basic stripe bfs","[weight=1][part=fill]"){
     PNG img;
     img.readFromFile(GRIDTESTIMAGE);
     HSLAPixel px(200., 1.0, 0.5);
@@ -164,9 +164,9 @@ TEST_CASE("fill::basic stripe dfs","[weight=1][part=fill]"){
     result.writeToFile("images/bfsstripe.png");
     PNG expected; expected.readFromFile("soln_images/bfsstripe.png");
     REQUIRE(result==expected);
-}*/
+}
 
-TEST_CASE("fill::basic rainbow dfs","[weight=1][part=fill]"){
+/*TEST_CASE("fill::basic rainbow dfs","[weight=1][part=fill]"){
 
     PNG img;
     img.readFromFile(RAINTESTIMAGE);
@@ -180,7 +180,7 @@ TEST_CASE("fill::basic rainbow dfs","[weight=1][part=fill]"){
     PNG expected; expected.readFromFile("soln_images/dfsrain.png");
     REQUIRE(result==expected);
 
-}
+}*/
 /*TEST_CASE("fill::basic rainbow bfs","[weight=1][part=fill]"){
 
     PNG img;

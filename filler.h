@@ -134,7 +134,7 @@ namespace filler
     animation fill(PNG& img, int x, int y, colorPicker& fillColor,
                    double tolerance, int frameFreq);
 
-    bool canAdd(PNG& img, int x,int y,double tolerance, HSLAPixel *center);
+    bool canAdd(PNG& img, int x,int y,std::set<pair<int,int>>& mark,double tolerance, HSLAPixel *center);
     
 }
 #include "filler.cpp"
