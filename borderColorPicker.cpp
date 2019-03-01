@@ -14,7 +14,7 @@ HSLAPixel borderColorPicker::operator()(int x, int y)
 
 /* Your code here! */
 	HSLAPixel *newColor = im.getPixel((unsigned int)x, (unsigned int)y);
-	if((*newColor == ctr && isFillBorder(x,y)) || (*newColor == ctr && isImgBorder(x,y))){
+	if((isFillBorder(x,y)) || (isImgBorder(x,y))){
 		return color;
 	}
 	else{
@@ -28,7 +28,7 @@ bool borderColorPicker::isFillBorder(int x, int y){
 		for(unsigned int y_=0; y_<im.height(); y_++){
 			HSLAPixel *pixel = im.getPixel(x_,y_);
 			double disSquare = ((unsigned int)x-x_)*((unsigned int)x-x_) + ((unsigned int)y-y_)*((unsigned int)y-y_);
-			if(disSquare<=9 && (ctr.dist(* pixel) <= tol))
+			if(disSquare<=9 && (ctr.dist(* pixel) > tol))
 				return true;
 		}
 	}

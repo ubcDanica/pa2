@@ -2,14 +2,14 @@
 #include <iostream>
 #include "cs221util/catch.hpp"
 #include "stack.h"
-#include "queue.h"
+#include "queue.h" 
 //using namespace cs221util; 
 using namespace std;
 
 TEST_CASE("deque::basic functions","[weight=1][part=deque]"){
-
+ 
     Deque<int> intDeque;
-    vector<int> result;
+    vector<int> result; 
     vector<int> expected;
     for (int i = 10; i > 0; i--) {
         expected.push_back(i);

@@ -7,7 +7,7 @@
 
 animation filler::fillStripeDFS(PNG& img, int x, int y, HSLAPixel fillColor,
                                 int stripeSpacing, double tolerance, int frameFreq)
-{
+{ 
     /**
      * @todo Your code here! 
      */
@@ -73,7 +73,8 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     int x0;
     int y0;
     int fill = 0;
-    HSLAPixel *center = img.getPixel(x,y);
+    HSLAPixel *pixelCenter = img.getPixel((unsigned int)x,(unsigned int)y);
+    HSLAPixel *center = new HSLAPixel(pixelCenter->h, pixelCenter->s, pixelCenter->l, pixelCenter->a);
     animation anim;
 
     std::map<std::pair<int,int>, bool> mark;
@@ -84,62 +85,145 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
         }
     }
 
+    cout<<"(x,y): ";
+    cout<<x;
+    cout<<",";
+    cout<<y<<endl;
     ordering.add(std::pair<int, int>(x, y));
+    std::map<std::pair<int,int>,bool>::iterator marked;
+    //cout<< "map size: " + mark.size() <<endl;
+    if(!ordering.isEmpty())
+        cout<<"not empty now"<<endl;
+    pair<int,int> firstElement = ordering.peek();
+    cout<<"ordering:"; 
+    cout<< firstElement.first;
+    cout<< ",";
+    cout<< firstElement.second << endl;
+/*    std::map<pair<int,int>,bool>::iterator it = mark.find(pair<int,int>(x,y));
+    cout<<"(x,y): ";
+    cout<< it->first <<endl;*/
 
     while(!ordering.isEmpty()){
-        pair<int,int>(x0,y0) = ordering.remove();
+        //cout << "start while" << endl;
+        pair<int,int> element = ordering.remove();
+        x0 = element.first;
+        //cout<<x0<<endl;
+        y0 = element.second;
+        //cout<<y0<<endl;
 
-        if(canAdd(img, x0+1, y0-1, mark, tolerance, center))
+        HSLAPixel *pixel = img.getPixel((unsigned int)x0,(unsigned int)y0);
+/*        cout<<"distance";
+        cout<<pixel->dist(*center) <<endl;*/
+        
+        if(canAdd(img, x0+1, y0-1, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0+1,y0-1));
-        if(canAdd(img, x0, y0-1, mark, tolerance, center))
+        	//marked = mark.find(pair<int,int>(x0+1,y0-1));
+        	//marked->second = true;
+            //cout<<"add upright"<<endl;
+        }
+        if(canAdd(img, x0, y0-1, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0,y0-1));
-        if(canAdd(img, x0-1, y0-1, mark, tolerance, center))
+            //marked = mark.find(pair<int,int>(x0,y0-1));
+        	//marked->second = true;
+            //cout <<"add up"<<endl;
+        }
+        if(canAdd(img, x0-1, y0-1, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0-1,y0-1));
-        if(canAdd(img, x0-1, y0, mark, tolerance, center))
+            //marked = mark.find(pair<int,int>(x0-1,y0-1));
+        	//marked->second = true;
+            //cout<<"add upleft"<<endl;
+        }
+        if(canAdd(img, x0-1, y0, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0-1,y0));
-        if(canAdd(img, x0-1, y0+1, mark, tolerance, center))
+            //marked = mark.find(pair<int,int>(x0-1,y0));
+        	//marked->second = true;
+            //cout<<"add left"<<endl;
+        }
+        if(canAdd(img, x0-1, y0+1, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0-1,y0+1));
-        if(canAdd(img, x0, y0+1, mark, tolerance, center))
+            //marked = mark.find(pair<int,int>(x0-1,y0+1));
+        	//marked->second = true;
+            //cout<<"add downleft"<<endl;
+        }
+        if(canAdd(img, x0, y0+1, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0,y0+1));
-        if(canAdd(img, x0+1, y0+1, mark, tolerance, center))
+            //marked = mark.find(pair<int,int>(x0,y0+1));
+        	//marked->second = true;
+            //cout<<"add down"<<endl;
+        }
+        if(canAdd(img, x0+1, y0+1, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0+1,y0+1));
-        if(canAdd(img, x0+1, y0, mark, tolerance, center))
+            //marked = mark.find(pair<int,int>(x0+1,y0+1));
+        	//marked->second = true;
+            //cout<<"add downright"<<endl;
+        }
+        if(canAdd(img, x0+1, y0, mark, tolerance, center)){
             ordering.add(pair<int,int>(x0+1,y0));
+            //marked = mark.find(pair<int,int>(x0+1,y0));
+        	//marked->second = true;
+            //cout<<"add right"<<endl;
+        }
 
-
-
-        HSLAPixel *pixel = img.getPixel((unsigned)x0,(unsigned)y0);
-        *pixel = fillColor.operator()(x,y);
-        fill++;
- 
-        std::map<std::pair<int,int>,bool>::iterator marked = mark.find(pair<int,int>(x0,y0));
-        marked->second = true;
+/*        if(ordering.isEmpty()){
+            cout << "empty"<< endl;
+        }*/
+        marked = mark.find(pair<int,int>(x0,y0));
+        if(marked->second == false){
+        	*pixel = fillColor.operator()(x0,y0);
+        	fill++;
+        	marked->second = true;
+        }
 
         if(fill%frameFreq == 0){
+            cout<< "should add frame"<<endl;
             anim.addFrame(img);
+            //cout << "first add frame"<<endl;
             //anim.write(anim);
         }
 
 
     }
+    cout << "should add frame" <<endl;
     anim.addFrame(img);
+    //cout<<"last add frame"<<endl;
     //anim.write(anim);
 
     return anim;
     
 }
     bool filler::canAdd(PNG& img, int x,int y,std::map<std::pair<int,int>, bool> mark, double tolerance, HSLAPixel *center){
-        if(x<=(int)img.width() && x>0 && y<=(int)img.height() && y>0){
-            HSLAPixel *pixel = img.getPixel(x,y);
-            if(mark.at(pair<int,int>(x,y)) == false && (center->dist(*pixel)<= tolerance)){
+        if((unsigned int)x<img.width() && x>=0 && (unsigned int)y<img.height() && y>=0){
+            //cout<<"first if"<<endl;
+            HSLAPixel *pixel = img.getPixel((unsigned int)x,(unsigned int)y);
+            	if(*center == *pixel){
+            		//cout<<"equal pixel"<<endl;
+            	}
+            std::map<pair<int,int>, bool>::iterator it = mark.find(pair<int,int>(x,y));
+            if(it->second == false && (pixel->dist(*center)<= tolerance)){
+            	//cout<<"x: " << x <<endl;
+            	//cout<<"y: " << y <<endl;
+            	//cout<<"added distance: ";
+            	//cout<<pixel->dist(*center) <<endl;
                 return true;
             }
-            else
+            else{
+/*            	if(!(it->second == false)){
+            		cout<<"marked"<<endl;
+            	}
+            	else if(!(center->dist(*pixel)<=tolerance)){
+            		cout<<"tolerance"<<endl;
+            		cout<<center->dist(*pixel)<<endl;
+            	}*/
                 return false;
-        }
-        else return false;
+    	    	}
 
-    }
+    	}
+
+        else{
+        	//cout<<"not in width or heigh"<<endl;
+        	return false;
+        }
+  }
 
     /**
      * @todo You need to implement this function!

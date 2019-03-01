@@ -33,21 +33,27 @@ void Deque<T>::pushR(T const& newItem)
     	k2 = 0;
     }
     else{
-    	if(k1+k2 == (int)data.size()-1){
-    		//printf("\n before push dataSize: %ld", data.size());
-    		data.resize((int)data.size()*2);
-    	}
-    	//printf("\n after push dataSize: %ld", data.size());
-    	
-    //printf("\nk1: %d", k1);
-    //printf("\nk2: %d", k2);    	
-    	if(k2==(int)data.size()-1)
-    		k2=0;
-    	else
-    		k2+=1;
-    	data[k2] = newItem;
+/*
+        data.push_back(newItem);
+        if((unsigned long)k2 == data.size()-2)
+            k2+=1;
+        else{
+            for(int a=(int)data.size()-2;a>=k2+1;a--){
+                data[a+1] = data[a];
+            }
+            data[k2+1]=newItem;
+            k2++;
+        }
+    }*/
+    if(k2 == (int)data.size()-1){
+        data.push_back(newItem);
+        k2++;
     }
-
+    else{
+        data[++k2] = newItem;
+    }
+    
+    }
     //Not sure, if it resize the running time change
 }
 
