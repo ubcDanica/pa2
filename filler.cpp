@@ -76,12 +76,9 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     HSLAPixel *pixelCenter = img.getPixel((unsigned int)x,(unsigned int)y);
     HSLAPixel *center = new HSLAPixel(pixelCenter->h, pixelCenter->s, pixelCenter->l, pixelCenter->a);
     animation anim;
-    if(img.width()>0 && img.height()>0) {
-        int marked[img.width()][img.height()] = {0};
-    }
-    else{
-        return anime;
-    }
+
+    std::vector<std::vector<int>> marked(img.width(), vector<int> (img.height(), 0));
+
     ordering.add(std::pair<int, int>(x, y));
 
     if(!ordering.isEmpty())
@@ -94,7 +91,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
         y0 = element.second;
 
         HSLAPixel *pixel = img.getPixel((unsigned int)x0,(unsigned int)y0);
-        
+
         if(canAdd(img, x0+1, y0-1, tolerance, center, marked)){
             ordering.add(pair<int,int>(x0+1,y0-1));
 
@@ -125,7 +122,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
         }
 
-        if(marked[x0][y0])== 0){
+        if(marked[x0][y0]== 0){
         	*pixel = fillColor.operator()(x0,y0);
         	fill++;
             marked[x0][y0] = 1;
@@ -136,16 +133,15 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
             cout<< "should add frame"<<endl;
             anim.addFrame(img);
         }
-
-
     }
+
     cout << "should add frame" <<endl;
     anim.addFrame(img);
 
     return anim;
     
 }
-    bool filler::canAdd(PNG& img, int x,int y,double tolerance, HSLAPixel *center, int &marked[][]){
+    bool filler::canAdd(PNG& img, int x,int y,double tolerance, HSLAPixel *center, std::vector<std::vector<int>> &marked){
         if((unsigned int)x<img.width() && x>=0 && (unsigned int)y<img.height() && y>=0){
 
             HSLAPixel *pixel = img.getPixel((unsigned int)x,(unsigned int)y);
