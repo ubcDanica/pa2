@@ -45,6 +45,17 @@ using namespace cs221util;
 #define RAINTESTIMAGE "originals/cloud.png"
 #define RAINFRAMEFREQ 500
 
+//#define WRITEWIDTH 60
+//#define WRITEHEIGHT 60
+#define READWIDTH 5
+#define READHEIGHT 5
+#define READIM "originals/leaf.png"
+#define WRITEIM "originals/girl.png"
+
+
+
+
+
 PNG testColorPicker(colorPicker& picker)
 {
     PNG img;
@@ -197,5 +208,6 @@ TEST_CASE("fill::basic rainbow bfs","[weight=1][part=fill]"){
     REQUIRE(result==expected);
 
 }
+
 
 

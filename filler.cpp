@@ -17,7 +17,7 @@ animation filler::fillStripeDFS(PNG& img, int x, int y, HSLAPixel fillColor,
 
 animation filler::fillBorderDFS(PNG& img, int x, int y,
                                     HSLAPixel borderColor, double tolerance, int frameFreq)
-{
+{ 
     /**
      * @todo Your code here! 
      */
