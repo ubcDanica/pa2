@@ -65,6 +65,19 @@ animation filler::fillRainBFS(PNG& img, int x, int y,
     return fill<Queue>(img, x, y, a, tolerance, frameFreq);
 }
 
+animation filler::fillCustomDFS(PNG& writeImg, PNG& readImg, int x, int y, double tolerance, int frameFreq)
+{
+    customColorPicker a(writeImg,readImg);
+    return fill<Stack>(writeImg, x, y, a, tolerance, frameFreq);
+}
+
+animation filler::fillCustomBFS(PNG& writeImg, PNG& readImg, int x, int y, double tolerance, int frameFreq)
+{
+    customColorPicker a(writeImg,readImg);
+    return fill<Queue>(writeImg, x, y, a, tolerance, frameFreq);
+
+}
+
 template <template <class T> class OrderingStructure>
 animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
                        double tolerance, int frameFreq)
@@ -82,7 +95,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     Add(img,x,y,tolerance,center,marked,fill,frameFreq, ordering, anim, fillColor);
 
     if(fill%frameFreq == 0){
-        cout<< "should add frame"<<endl;
+        //cout<< "should add frame"<<endl;
         anim.addFrame(img);
     }
 
@@ -107,7 +120,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
     }
 
-    cout << "should add frame" <<endl;
+    //cout << "should add frame" <<endl;
     anim.addFrame(img);
 
     return anim;
@@ -128,7 +141,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
                 marked[x][y] = 1;
                 fill++;
                 if(fill%frameFreq == 0){
-                    cout<< "should add frame"<<endl;
+                    //cout<< "should add frame"<<endl;
                     anim.addFrame(img);
                 }
                 return true;
