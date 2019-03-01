@@ -92,47 +92,51 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
         HSLAPixel *pixel = img.getPixel((unsigned int)x0,(unsigned int)y0);
 
-        if(canAdd(img, x0+1, y0-1, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0+1,y0-1));
-
-        }
-        if(canAdd(img, x0, y0-1, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0,y0-1));
-
-        }
-        if(canAdd(img, x0-1, y0-1, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0-1,y0-1));
-
-        }
-        if(canAdd(img, x0-1, y0, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0-1,y0));
-        }
-        if(canAdd(img, x0-1, y0+1, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0-1,y0+1));
-        }
-        if(canAdd(img, x0, y0+1, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0,y0+1));
-        }
-        if(canAdd(img, x0+1, y0+1, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0+1,y0+1));
-
-        }
-        if(canAdd(img, x0+1, y0, tolerance, center, marked)){
-            ordering.add(pair<int,int>(x0+1,y0));
-
-        }
-
         if(marked[x0][y0]== 0){
-        	*pixel = fillColor.operator()(x0,y0);
-        	fill++;
+            if(canAdd(img, x0+1, y0-1, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0+1,y0-1));
+
+
+            }
+            if(canAdd(img, x0, y0-1, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0,y0-1));
+
+            }
+            if(canAdd(img, x0-1, y0-1, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0-1,y0-1));
+
+            }
+            if(canAdd(img, x0-1, y0, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0-1,y0));
+            }
+            if(canAdd(img, x0-1, y0+1, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0-1,y0+1));
+            }
+            if(canAdd(img, x0, y0+1, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0,y0+1));
+            }
+            if(canAdd(img, x0+1, y0+1, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0+1,y0+1));
+
+            }
+            if(canAdd(img, x0+1, y0, tolerance, center, marked)){
+                ordering.add(pair<int,int>(x0+1,y0));
+
+            }
+
+
+            *pixel = fillColor.operator()(x0,y0);
+            fill++;
             marked[x0][y0] = 1;
+
+            if(fill%frameFreq == 0){
+                cout<< "should add frame"<<endl;
+                anim.addFrame(img);
+            }
         }
 
 
-        if(fill%frameFreq == 0){
-            cout<< "should add frame"<<endl;
-            anim.addFrame(img);
-        }
+
     }
 
     cout << "should add frame" <<endl;
