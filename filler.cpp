@@ -174,6 +174,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
         	marked->second = true;
         }
 
+
         if(fill%frameFreq == 0){
             cout<< "should add frame"<<endl;
             anim.addFrame(img);
