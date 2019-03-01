@@ -76,9 +76,12 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     HSLAPixel *pixelCenter = img.getPixel((unsigned int)x,(unsigned int)y);
     HSLAPixel *center = new HSLAPixel(pixelCenter->h, pixelCenter->s, pixelCenter->l, pixelCenter->a);
     animation anim;
-
-    int marked[img.width()][img.height()]={0};
-
+    if(img.width()>0 && img.height()>0) {
+        int marked[img.width()][img.height()] = {0};
+    }
+    else{
+        return anime;
+    }
     ordering.add(std::pair<int, int>(x, y));
 
     if(!ordering.isEmpty())
